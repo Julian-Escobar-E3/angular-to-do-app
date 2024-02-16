@@ -1,0 +1,128 @@
+<div class="container d-flex p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h2 class="float-md-start mb-0 font-monospace fw-bold">
+        {{ formattedDate() + "  " + emojiTime() }}
+      </h2>
+      <nav class="mt-3 nav nav-masthead justify-content-center float-md-end">
+        <button
+          class="nav-link fw-bold py-1 px-0"
+          (click)="changeFilter('all')"
+          [class.active]="filter() === 'all'"
+        >
+          All
+        </button>
+        <button
+          class="nav-link fw-bold py-1 px-0"
+          (click)="changeFilter('do')"
+          [class.active]="filter() === 'do'"
+        >
+          Do
+        </button>
+        <button
+          class="nav-link fw-bold py-1 px-0"
+          (click)="changeFilter('doing')"
+          [class.active]="filter() === 'doing'"
+        >
+          Doing
+        </button>
+        <button
+          class="nav-link fw-bold py-1 px-0"
+          (click)="changeFilter('done')"
+          [class.active]="filter() === 'done'"
+        >
+          Done
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mt-5 container">
+    <div class="row">
+      <div class="col-md-5 mx-auto">
+        <h1 class="fw-bold text-decoration-underline fst-italic">TO DO APP</h1>
+
+        <!-- ----------------------------------------------- -->
+        <!-- revisar que las validaciones se muestren en el input -->
+
+        <div class="lead" *ngIf="filter() === 'all'">
+          <div class="input-group mb-3">
+            @if (validateTask.hasError('minLength')) {
+            <div class="">
+              El tamaño mìnimo es de 5 caracteres.
+            </div>
+            }
+            <input
+              type="text"
+              class="form-control"
+              placeholder="add new task"
+              (keydown.enter)="newTask()"
+              [formControl]="validateTask"
+            />
+            <button class="btn btn-success" type="button" (click)="newTask()">
+              +
+            </button>
+          </div>
+        </div>
+        <div class="lead">
+          <div class="list-group">
+            @for (task of filterOptions(); track task.id) {
+            <li
+              class="list-group-item list-group-item-action"
+              [class]="getState(task.state || '')"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="w-75">
+                  @if(task.editing){
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      placeholder="Editar tarea"
+                      [value]="task.title | lowercase"
+                      (keydown.enter)="updateTask(task.id, $event)"
+                    />
+                  </div>
+                  }@else{
+                  <label>{{ task.title | lowercase }}</label>
+                  }
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center">
+                  &nbsp;
+                  <button class="icon-button" (click)="removeTask(task.id)">
+                    <i class="bi bi-trash text-danger"></i>
+                  </button>
+                  &nbsp; @if (task.state === 'do') {
+                  <button class="icon-button" (click)="editingMode(task.id)">
+                    <i class="bi bi-pencil-square text-success"></i>
+                  </button>
+                  &nbsp; } &nbsp;
+                  <select class="selectico" [(ngModel)]="task.state">
+                    <option value="all">...</option>
+                    <option
+                      *ngFor="let option of stateOptions"
+                      [value]="option"
+                      (click)="editOption(task.id, option)"
+                    >
+                      {{ option }}
+                    </option>
+                  </select>
+                  <!-- <div class="border border-danger"> -->
+                  <!--   {{task | json}} -->
+                  <!-- </div> -->
+                  <!-- --------------------------------------- -->
+                </div>
+              </div>
+            </li>
+
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- <footer class="mt-5 text-white-50"> -->
+<!--   <p>Developmet by E3ZK07</p> -->
+<!-- </footer> -->

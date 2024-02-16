@@ -1,0 +1,41 @@
+.nav-masthead .nav-link {
+  color: rgba(255,255,255,.5);
+  border-bottom:.25rem solid transparent;
+}
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(255,255,255,.25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 1rem;
+}
+
+.nav-masthead .active {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.icon-button{
+  background:none;
+  border:none;
+  padding:0;
+  cursor:pointer;
+  outline:none;
+}
+
+.selectico{
+border:none;
+  border-radius:8px;
+cursor:pointer;
+color:#ffffff;
+background-color:#2a4869;
+
+}
+
+.optioncita{
+  background-color:#ffffff;
+}
+
+.list-group-item:hover{
+  cursor:pointer;
+}

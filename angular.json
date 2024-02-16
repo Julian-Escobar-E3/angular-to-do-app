@@ -60,7 +60,8 @@
               "buildTarget": "todo-angular-app:build:production"
             },
             "development": {
-              "buildTarget": "todo-angular-app:build:development"
+              "buildTarget": "todo-angular-app:build:development",
+              "port": 4400
             }
           },
           "defaultConfiguration": "development"
